@@ -202,6 +202,17 @@ func parseLineToQueue(line string, rip net.Addr) {
 		//log.Printf("set: %s=%s", line[0:colon], value)
 		op.op = SDOP_S
 		op.sval = value
+	case "h":
+		// log.Printf("histogram: %s=%s", line[0:colon], value)
+		ival, err := strconv.ParseInt(value, 10, 64)
+		if err != nil {
+			log.Printf("bad line [%s] from ip [%v]", line, rip)
+			return
+		}
+		// TODO: properly support histogram counters
+		// http://docs.datadoghq.com/guides/metrics/#histograms
+		op.op = SDOP_G_SET
+		op.ival = ival
 	default:
 		log.Printf("bad line [%s] from ip [%v]", line, rip)
 		return
