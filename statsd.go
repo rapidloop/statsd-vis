@@ -143,13 +143,20 @@ func parseLineToQueue(line string, rip net.Addr) {
 	if bar2 != -1 {
 		typeEnd = bar1 + 1 + bar2
 		rest := line[bar1+1+bar2+1:]
-		if len(rest) < 2 || rest[0] != '@' {
-			log.Printf("bad line [%s] from ip [%v]", line, rip)
-			return
-		}
-		if sampleRate, err = strconv.ParseFloat(rest[1:], 64); err != nil {
-			log.Printf("bad line [%s] from ip [%v]", line, rip)
-			return
+		// sampling format
+		if rest[0] == '@' {
+			if sampleRate, err = strconv.ParseFloat(rest[1:], 64); err != nil {
+				log.Printf("bad line [%s] from ip [%v]", line, rip)
+				return
+			}
+		} else if rest[0] == '#' {
+			// tag format
+			// TODO: do something with the tags, now simply tolerate them
+			// tags := rest[1:]
+			// log.Printf("tags: %s", tags)
+		} else {
+		 	log.Printf("bad line [%s] from ip [%v]", line, rip)
+		 	return
 		}
 	}
 
