@@ -48,7 +48,7 @@ var (
 func usage() {
 	fmt.Fprintf(os.Stderr,
 		`statsd-vis %s - (c) 2017 RapidLoop - MIT Licensed - https://statsd-vis.info/
-statd-vis is a standalone statsd server with built-in visualization
+statsd-vis is a standalone statsd server with built-in visualization
 
 `, Version)
 	flag.PrintDefaults()

@@ -16,7 +16,7 @@ information and a live demo!*
 statsd-vis is written entirely in [Go](https://golang.org/). To build it,
 you can `go get` it:
 
-    go get github.com/rapidloop/statd-vis
+    go get github.com/rapidloop/statsd-vis
 
 You should find the binary `statsd-vis` under `$GOPATH/bin` when the command
 completes. There are no runtime dependencies or configuration needed.
