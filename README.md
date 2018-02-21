@@ -47,7 +47,7 @@ statd-vis is a standalone statsd server with built-in visualization
 ## releases
 
 You can get pre-built binaries for releases from the
-[releases page](https://github.com/rapidloop/statsd-vis/releases).
+[releases page](https://github.com/rapidloop/statsd-vis/releases). There is also a [statsd-vis Docker image](https://hub.docker.com/r/rapidloop/statsd-vis/) on Docker Hub, built from source on each commit ([Automated Build](https://docs.docker.com/docker-hub/builds/)).
 
 ## changelog
 
