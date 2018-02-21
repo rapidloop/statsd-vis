@@ -8,9 +8,6 @@ with which you can visualize graphs.
 It holds time series data for a configurable time in-memory, and does not
 persist or forward it.
 
-*statsd-vis's [home page](https://statsd-vis.info) has more
-information and a live demo!*
-
 ## build
 
 statsd-vis is written entirely in [Go](https://golang.org/). To build it,
@@ -47,7 +44,13 @@ statd-vis is a standalone statsd server with built-in visualization
 ## releases
 
 You can get pre-built binaries for releases from the
-[releases page](https://github.com/rapidloop/statsd-vis/releases). There is also a [statsd-vis Docker image](https://hub.docker.com/r/rapidloop/statsd-vis/) on Docker Hub, built from source on each commit ([Automated Build](https://docs.docker.com/docker-hub/builds/)).
+[releases page](https://github.com/rapidloop/statsd-vis/releases).
+
+There is also a [statsd-vis Docker image](https://hub.docker.com/r/rapidloop/statsd-vis/)
+on Docker Hub, built from source on each commit. You can run the docker
+image with:
+
+    docker run -it rapidloop/statsd-vis
 
 ## changelog
 
