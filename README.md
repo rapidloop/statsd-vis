@@ -47,10 +47,11 @@ You can get pre-built binaries for releases from the
 [releases page](https://github.com/rapidloop/statsd-vis/releases).
 
 There is also a [statsd-vis Docker image](https://hub.docker.com/r/rapidloop/statsd-vis/)
-on Docker Hub, built from source on each commit. You can run the docker
-image with:
+on Docker Hub, built from source on each commit. You can run the Docker image with:
 
-    docker run -it rapidloop/statsd-vis
+    docker run --rm -it -p 8080:8080 -p 8125:8125/udp -p 8125:8125/tcp rapidloop/statsd-vis -statsdudp 0.0.0.0:8125 -statsdtcp 0.0.0.0:8125
+
+Notice that for Docker usage, you have to listen on 0.0.0.0, since the default 127.0.0.1 won't be reachable from outside the container, even from the Docker host.
 
 ## changelog
 
