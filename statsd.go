@@ -215,7 +215,7 @@ func parseLineToQueue(line string, rip net.Addr) {
 		op.op = SDOP_G_SET
 		op.ival = ival
 	default:
-		log.Printf("bad line [%s] from ip [%v]", line, rip)
+		log.Printf("bad line [%s] from ip [%v], unknown %s", line, rip, line[bar1 + 1 : typeEnd])
 		return
 	}
 
