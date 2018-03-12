@@ -145,8 +145,9 @@ func parseLineToQueue(line string, rip net.Addr) {
 		rest := line[bar1+1+bar2+1:]
 		// sampling format
 		if rest[0] == '@' {
-			if sampleRate, err = strconv.ParseFloat(rest[1:], 64); err != nil {
-				log.Printf("bad line [%s] from ip [%v]", line, rip)
+			sampleEnd := strings.Index(rest[0:], "|")
+			if sampleRate, err = strconv.ParseFloat(rest[1:sampleEnd], 64); err != nil {
+				log.Printf("bad line [%s] from ip [%v], err: %s", line, rip, err)
 				return
 			}
 		} else if rest[0] == '#' {
