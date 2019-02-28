@@ -143,13 +143,21 @@ func parseLineToQueue(line string, rip net.Addr) {
 	if bar2 != -1 {
 		typeEnd = bar1 + 1 + bar2
 		rest := line[bar1+1+bar2+1:]
-		if len(rest) < 2 || rest[0] != '@' {
-			log.Printf("bad line [%s] from ip [%v]", line, rip)
-			return
-		}
-		if sampleRate, err = strconv.ParseFloat(rest[1:], 64); err != nil {
-			log.Printf("bad line [%s] from ip [%v]", line, rip)
-			return
+		// sampling format
+		if rest[0] == '@' {
+			sampleEnd := strings.Index(rest[0:], "|")
+			if sampleRate, err = strconv.ParseFloat(rest[1:sampleEnd], 64); err != nil {
+				log.Printf("bad line [%s] from ip [%v], err: %s", line, rip, err)
+				return
+			}
+		} else if rest[0] == '#' {
+			// tag format
+			// TODO: do something with the tags, now simply tolerate them
+			// tags := rest[1:]
+			// log.Printf("tags: %s", tags)
+		} else {
+		 	log.Printf("bad line [%s] from ip [%v]", line, rip)
+		 	return
 		}
 	}
 
@@ -195,8 +203,19 @@ func parseLineToQueue(line string, rip net.Addr) {
 		//log.Printf("set: %s=%s", line[0:colon], value)
 		op.op = SDOP_S
 		op.sval = value
+	case "h":
+		// log.Printf("histogram: %s=%s", line[0:colon], value)
+		ival, err := strconv.ParseInt(value, 10, 64)
+		if err != nil {
+			log.Printf("bad line [%s] from ip [%v]", line, rip)
+			return
+		}
+		// TODO: properly support histogram counters
+		// http://docs.datadoghq.com/guides/metrics/#histograms
+		op.op = SDOP_G_SET
+		op.ival = ival
 	default:
-		log.Printf("bad line [%s] from ip [%v]", line, rip)
+		log.Printf("bad line [%s] from ip [%v], unknown %s", line, rip, line[bar1 + 1 : typeEnd])
 		return
 	}
 
